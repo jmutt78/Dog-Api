@@ -4,19 +4,14 @@
 function inputSubmit() {
   $('#search-bar').submit(event => {
     event.preventDefault();
-    let dogNumber = $('#search-input').val();
-    if (dogNumber <= 50) {
-      getDogImage(dogNumber);
-    } else {
-      alert('Please enter less than 50')
-    }
-
+    let breedName = $('#search-input').val();
+      getDogImage(breedName);
   });
 }
 
 //get request
-function getDogImage(dogNumber) {
-  fetch(`https://dog.ceo/api/breeds/image/random/${dogNumber}`)
+function getDogImage(breedName) {
+  fetch(`https://dog.ceo/api/breed/${breedName}/images/random`)
     .then(response => response.json())
     .then(responseJson =>
       dogDisplay(responseJson))
@@ -27,21 +22,25 @@ function getDogImage(dogNumber) {
 //dispalys thumbnail and title
 function dogDisplay(responseJson) {
 let imageAmount = responseJson.message;
-imageAmount.forEach(function(imageAmounts) {
-  console.log(imageAmounts);
+  console.log(imageAmount);
 
-
-//  $('.results').replaceWith(
-    //`<img src=${imageAmounts} alt="results">`
-//  )
+ $('.results').replaceWith(
+`<img src=${imageAmount} alt="results">`
+ )
   //display the results section
- //$('.results').removeClass('hidden');
-});
+$('.results').removeClass('hidden');
+
+}
+function tryAgain() {
+  $('#try-again').click(function() {
+    location.reload();
+  });
 }
 
 //function handler
 function handleDogApi() {
   inputSubmit();
+  tryAgain();
 }
 
 $(handleDogApi);
