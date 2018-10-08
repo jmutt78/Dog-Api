@@ -5,7 +5,12 @@ function inputSubmit() {
   $('#search-bar').submit(event => {
     event.preventDefault();
     let dogNumber = $('#search-input').val();
-    getDogImage(dogNumber);
+    if (dogNumber <= 50) {
+      getDogImage(dogNumber);
+    } else {
+      alert('Please enter less than 50')
+    }
+
   });
 }
 
@@ -26,12 +31,11 @@ imageAmount.forEach(function(imageAmounts) {
   console.log(imageAmounts);
 
 
-  $('.search-results').replaceWith(
-    `<img src=${imageAmounts} alt="results">`
-  )
+//  $('.results').replaceWith(
+    //`<img src=${imageAmounts} alt="results">`
+//  )
   //display the results section
- $('.results').removeClass('hidden');
-
+ //$('.results').removeClass('hidden');
 });
 }
 
