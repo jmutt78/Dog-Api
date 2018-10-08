@@ -1,32 +1,39 @@
 'use strict';
 
-
-//get request
-function getDogImage(dogNumber) {
-  fetch('https://dog.ceo/api/breeds/image/random/${dogNumber}')
-    .then(response => response.json())
-    .then(responseJson =>
-      dogDisplay(responseJson))
-    .catch(error => alert('Something went wrong. Try again later.'));
-}
-
-
 //Event listerner that gets users submission//
 function inputSubmit() {
   $('#search-bar').submit(event => {
     event.preventDefault();
     let dogNumber = $('#search-input').val();
     getDogImage(dogNumber);
-
   });
 }
 
+//get request
+function getDogImage(dogNumber) {
+  fetch(`https://dog.ceo/api/breeds/image/random/${dogNumber}`)
+    .then(response => response.json())
+    .then(responseJson =>
+      dogDisplay(responseJson))
+
+    .catch(error => console.log(('Something went wrong. Try again later.')));
+}
 
 //dispalys thumbnail and title
 function dogDisplay(responseJson) {
-  console.log(responseJson.message);
-}
+let imageAmount = responseJson.message;
+imageAmount.forEach(function(imageAmounts) {
+  console.log(imageAmounts);
 
+
+  $('.search-results').replaceWith(
+    `<img src=${imageAmounts} alt="results">`
+  )
+  //display the results section
+ $('.results').removeClass('hidden');
+
+});
+}
 
 //function handler
 function handleDogApi() {
